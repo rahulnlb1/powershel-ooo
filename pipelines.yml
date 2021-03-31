@@ -1,14 +1,14 @@
 resources:
-  - name: S_PS_Generic_0066_GitRepo
+  - name: S_Bash_0586_GitRepo
     type: GitRepo
     configuration:
-      path: rahulnlb1/powershel-ooo
-      gitProvider: rahulgithub
+      path: jfbetapipeorg/Org_test_Automation_bash
+      gitProvider: s_gitHub
       branches:
         include: ^{{gitBranch}}$
 
 pipelines:
-  - name: pipelines_PS_Generic_0066
+  - name: pipelines_S_Bash_0586
     configuration:
       runtime:
         type: image
@@ -18,16 +18,15 @@ pipelines:
             versions:
               - "10.18.0"
     steps:
-       - name: S_PS_Generic_0066
-         type: PowerShell
+       - name: S_Bash_0586
+         type: Bash
          configuration:
-           nodePool: win_2019
            inputResources:
-              - name: S_PS_Generic_0066_GitRepo
+              - name: S_Bash_0586_GitRepo
          execution:
            onExecute:
-             - Push-Location $res_S_PS_Generic_0066_GitRepo_resourcePath/tests/core/oom
-             - fsutil file createnew output.dat 104857600 #100MB
-             - Get-ChildItem
+             - echo $res_S_Bash_0586_GitRepo_resourcePath
+             - pushd $res_S_Bash_0586_GitRepo_resourcePath/tests/core/oom
+             - dd if=/dev/zero of=output.dat  bs=100M  count=1
              - node oom.js
-             - Pop-Location
+             - popd

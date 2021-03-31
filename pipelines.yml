@@ -9,14 +9,14 @@ resources:
 
 pipelines:
   - name: pipelines_S_Bash_0586
-    configuration:
-      runtime:
-        type: image
-        image:
-          auto:
-            language: node
-            versions:
-              - "10.18.0"
+#     configuration:
+#       runtime:
+#         type: image
+#         image:
+#           auto:
+#             language: node
+#             versions:
+#               - "10.18.0"
     steps:
        - name: S_Bash_0586
          type: Bash
